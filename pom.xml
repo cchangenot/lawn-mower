@@ -15,6 +15,7 @@
 
   <properties>
     <java.version>14</java.version>
+    <restrict-imports-enforcer-rule.version>1.1.0</restrict-imports-enforcer-rule.version>
   </properties>
 
   <dependencies>
@@ -59,6 +60,39 @@
             </path>
           </annotationProcessorPaths>
         </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>de.skuzzle.enforcer</groupId>
+            <artifactId>restrict-imports-enforcer-rule</artifactId>
+            <version>${restrict-imports-enforcer-rule.version}</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <banDuplicatePomDependencyVersions/>
+                <restrictImports implementation="de.skuzzle.enforcer.restrictimports.rule.RestrictImports">
+                  <reason>Use AssertJ instead: org.assertj.core.api.Assertions</reason>
+                  <bannedImports>
+                    <bannedImport>org.junit.jupiter.api.Assertions</bannedImport>
+                    <bannedImport>org.hamcrest.**</bannedImport>
+                  </bannedImports>
+                  <includeTestCode>true</includeTestCode>
+                </restrictImports>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
 
