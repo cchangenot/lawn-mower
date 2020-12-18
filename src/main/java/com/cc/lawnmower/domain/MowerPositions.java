@@ -9,4 +9,11 @@ import java.util.List;
 @Setter
 public class MowerPositions {
   List<Position> positions;
+
+  public MowerPositions() {
+  }
+
+  public MowerPositions(List<Position> positions) {
+    this.positions = positions;
+  }
 }

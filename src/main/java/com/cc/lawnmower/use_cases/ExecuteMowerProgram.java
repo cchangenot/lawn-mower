@@ -24,7 +24,6 @@ public class ExecuteMowerProgram {
     var maxX = dimension.getWidth();
     var maxY = dimension.getHeight();
 
-
     mower.getInstructions().chars().forEach(instruction -> {
       switch (instruction) {
         case 'D' -> currentPosition.turnRight();

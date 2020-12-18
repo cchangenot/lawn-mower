@@ -1,0 +1,40 @@
+<script>
+  async function programMower() {
+    const response = await fetch('http://localhost:8080/mower/program', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "dimensions": {
+          "width": 5,
+          "height": 5
+        },
+        "mowers": [
+          {
+            "position": {
+              "x": 1,
+              "y": 2,
+              "orientation": "N"
+            },
+            "instructions": "GAGAGAGAA"
+          },
+          {
+            "position": {
+              "x": 3,
+              "y": 3,
+              "orientation": "E"
+            },
+            "instructions": "AADAADADDA"
+          }
+        ]
+      })
+    })
+    const data = await response.json();
+    document.body.innerText = JSON.stringify(data, null, 2);
+  }
+</script>
+<html>
+<body style="white-space: pre" onload="programMower()">
+</body>
+</html>
